@@ -1,0 +1,90 @@
+{% extends "back/master.html" %}
+{% load static %}
+
+{% block mainblock %}
+                    <div id="page-content">
+                        <!-- Datatables Header -->
+                        <div class="content-header">
+                            <div class="header-section">
+                                <h1>
+                                    <i class="fa fa-table"></i>Categories <br><small>This is Categories List</small>
+                                </h1>
+                            </div>
+                        </div>
+                        <ul class="breadcrumb breadcrumb-top">
+                            <li>Categories</li>
+                            <li><a href="#">List</a></li>
+                        </ul>
+                        <!-- END Datatables Header -->
+
+                        <!-- Datatables Content -->
+
+                        <div class="content-header">
+                                <div class="header-section">
+                                    <h1>
+                                        <i class="fa fa-table"></i>Export Data<br><br><br>
+                                        <a href="{% url 'export_cat_csv' %}" data-toggle="tooltip" title="Export" class="btn btn-xs btn-danger" ><i class="fa fa-download"><small>Export CSV</small></i></a>
+                                                
+                                    </h1>
+                                </div>
+                        </div>
+                        <br><br>
+                        <div class="content-header">
+                                <div class="header-section">
+                        <form action="{% url "import_csv" %}" enctype="multipart/form-data" method="post" class="form-group">
+                            {% csrf_token %}
+                            <div class=""form-group>
+                                <lable>Upload CSV</lable>
+                                <input type="file" id = "csv_file" name="csv_file">
+                            </div>
+                    
+                    
+                            <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+
+                        </div>
+                    </div>
+
+                        <div class="block full">
+                            <div class="block-title">
+                                <h2><strong>Categories</strong> List</h2>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">Title</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       {% for c in cat %}
+                                            <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">{{ c.pk }}</td>
+                                            <td>{{ c.name }}</td>
+
+                                            <td class="text-center">
+                                                <div class="btn-group">
+                                                    <a href="javascript:void(0)" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil">Edit</i></a>
+                                                    <a href="{% url "news_delete" c.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times">Delete</i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END Datatables Content -->
+                    </div>
+{% endblock %}
+
+{% block footerblock %}
+        <script src="{% static "back/js/pages/tablesDatatables.js" %}"></script>
+        <script>$(function(){ TablesDatatables.init(); });</script>
+{% endblock %}

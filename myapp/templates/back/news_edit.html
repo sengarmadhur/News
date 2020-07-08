@@ -1,0 +1,77 @@
+{% extends "back/master.html" %}
+{% load static %}
+{% block headblock %}
+    <script src = "{% static "ckeditor/ckeditor.js" %}"></script>
+{% endblock %}
+
+{% block mainblock %}
+
+    <div class="block full">
+        <div class="block-title">
+            <h2><strong>Edit</strong> News</h2>
+        </div>
+        <div class="table-responsive"></div>
+    <form action="{% url "news_edit" id %}" enctype="multipart/form-data" method="post" class="form-group">
+        {% csrf_token %}
+        <div class=""form-group>
+            <lable>News Title</lable>
+            <input type="text" id = "newstitle" name="newstitle" value="{{ news.name }}" class="form-control" placeholder="What is news Title?">
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <div class="form-group">
+
+                <div class="col-md-12">
+                    <select id = "newscat" name="newscat" class="select-chosen" data-placeholder="Choose a Country.." style="width: 250px;">
+                        <option value="{{ news.catid }}">{{ news.catname }}</option>
+                        {% for i in cat %}
+                        <option value="{{ i.pk }}">{{ i.catname }}|{{ i.name }}</option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>News Summary</label>
+            <textarea id = "newssumm" name="newssumm" class="form-control" rows="3" placeholder="Summary">{{ news.summary }}</textarea>
+        </div>
+         <div class="form-group">
+            <label>News Body</label>
+            <textarea id = "newsbody" name="newsbody" class="form-control" rows="3" placeholder="Body">{{ news.body }}</textarea>
+        </div>
+         <script>
+            CKEDITOR.replace("newsbody")
+        </script>
+    <script>
+            CKEDITOR.replace("newssumm")
+        </script>
+         <div class=""form-group>
+
+            <input type="file" id = "myfiles" name="myfiles" row="5" class="form-control" placeholder="Body">
+        </div>
+         <div class=""form-group>
+            <img src = "{{ news.picurl }}" height="150" width="150">
+         </div>
+
+         <div class="form-group">
+            <label>Tags</label>
+            <textarea id = "tags" name="tags" class="form-control" rows="3" placeholder="Tags">{{ news.tags }}</textarea>
+        </div>
+
+        <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block footerblock %}
+        <script src="{% static "back/js/pages/tablesDatatables.js" %}"></script>
+        <script>$(function(){ TablesDatatables.init(); });</script>
+{% endblock %}

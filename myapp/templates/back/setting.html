@@ -1,0 +1,73 @@
+{% extends "back/master.html" %}
+{% load static %}
+
+{% block headblock %}
+    <script src = "{% static "ckeditor/ckeditor.js" %}"></script>
+{% endblock %}
+
+{% block mainblock %}
+
+    <div class="block full">
+        <div class="block-title">
+            <h2><strong>Site</strong> Settings</h2>
+        </div>
+        <div class="table-responsive"></div>
+    <form action="{% url "site_setting" %}" enctype="multipart/form-data" method="post" class="form-group">
+        {% csrf_token %}
+        <div class=""form-group>
+            <lable>Title</lable>
+            <input type="text" id = "title" value="{{ site.title }}" name="title" class="form-control" placeholder="">
+        </div>
+        <div class=""form-group>
+            <lable>Body</lable>
+            <input type="text" id = "body" value="{{ site.body }}" name="body" class="form-control" placeholder="">
+        </div>
+        <div class=""form-group>
+            <lable>Facebook</lable>
+            <input type="text" id = "fb" value="{{ site.fb }}" name="fb" class="form-control" placeholder="">
+        </div>
+        <div class=""form-group>
+            <lable>Twitter</lable>
+            <input type="text" id = "tw"  value="{{ site.tw }}" name="tw" class="form-control" placeholder="">
+        </div>
+        <div class=""form-group>
+            <lable>Instagram</lable>
+            <input type="text" id = "insta"  value="{{ site.insta }}" name="insta" class="form-control" placeholder="">
+        </div>
+        <div class=""form-group>
+            <lable>Phone</lable>
+            <input type="text" id = "ph"  value="{{ site.ph }}" name="ph" class="form-control" placeholder="">
+        </div>
+
+        <div class=""form-group>
+
+            <input type="file" id = "myfiles" name="myfiles" row="5" class="form-control" placeholder="Body">
+        </div>
+        <div class=""form-group>
+            <img src = "{{ site.picurl }}" height="150" width="150">
+         </div>
+
+         <div class=""form-group>
+
+            <input type="file" id = "myfiles2" name="myfiles2" row="5" class="form-control" placeholder="Body">
+        </div>
+        <div class=""form-group>
+            <img src = "{{ site.picurl2 }}" height="150" width="150">
+         </div>
+
+        <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block footerblock %}
+        <script src="{% static "back/js/pages/tablesDatatables.js" %}"></script>
+        <script>$(function(){ TablesDatatables.init(); });</script>
+{% endblock %}
