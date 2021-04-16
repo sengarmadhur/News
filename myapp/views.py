@@ -22,7 +22,7 @@ from newsletter.models import Newsletter
 
 def index(requests):
     news = News.objects.filter(act=1).order_by("-pk")
-    article_var = article.objects.get(pk = 2)
+    
     categories = Cat.objects.all()
     sub = SubCat.objects.all()
     lastnews = News.objects.filter(act=1).order_by("-pk")[:3]
@@ -32,7 +32,7 @@ def index(requests):
 
     trending = Trending.objects.all().order_by('-pk')
 
-    return render(requests, 'front/index.html',{'name':article_var,'News':news,'categories':categories,'subcat':sub,'lastnews':lastnews,
+    return render(requests, 'front/index.html',{'News':news,'categories':categories,'subcat':sub,'lastnews':lastnews,
                                                 'popularnews':popularnews,
                                                 'popularnews2':popularnews2,'trending':trending,'lastnews2':lastnews2})
 
